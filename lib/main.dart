@@ -14,39 +14,48 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class HomePage extends StatelessWidget {
+class _HomePageState extends State<HomePage> {
   //const HomePage(Key? key):super(key:key);
   //Criando uma variável que ira armazenar a contagem
   int count = 0;
 
   void decrement() {
-    count--;
-    print(count);
+    setState((){
+      count--;
+    });
   }
 
   void increment() {
-    count++;
-    print(count);
+    setState((){
+      count++;
+    });
   }
+
+  bool get isEmpty => count==0;
+  bool get isFull => count==25;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      appBar: AppBar(
+        title: Text("CONTADOR LAB FIAP",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 26
+            ),
+        ),
+        backgroundColor: Colors.pink,
+        centerTitle: true,
+      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -59,7 +68,7 @@ class HomePage extends StatelessWidget {
               MainAxisAlignment.center, //Alinhado no eixo da vertical
           children: [
             Text(
-              "Pode Entrar!",
+              isFull?"Lab lotado":"Pode entrar",
               style: TextStyle(
                 fontSize: 26,
                 color: Colors.white,
@@ -73,9 +82,9 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: decrement,
+                  onPressed: isEmpty?null:decrement,
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: isEmpty?Colors.white.withAlpha(90):Colors.white,
                     fixedSize: Size(100, 20),
                   ),
                   child: Text(
@@ -84,9 +93,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: increment,
+                  onPressed: isFull?null:increment,
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: isFull?Colors.white.withAlpha(90):Colors.white,
                     fixedSize: Size(100, 20),
                   ),
                   child: Text(
@@ -100,5 +109,5 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
-  }
+}
 }

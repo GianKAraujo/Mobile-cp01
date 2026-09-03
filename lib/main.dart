@@ -39,27 +39,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool get isEmpty => count==0;
-  bool get isFull => count==25;
+  bool get isFull => count==50;
+  bool get isAlmostFull => count>=40 && count <50;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CONTADOR LAB FIAP",
+        title: Text("Biblioteca Fiap",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 26
             ),
         ),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.purple,
         centerTitle: true,
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image:AssetImage("assets/images/fiap_bg.png"),
+            image:AssetImage("assets/images/cont_bg.jpeg"),
             fit:BoxFit.cover
           )
         ),
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               MainAxisAlignment.center, //Alinhado no eixo da vertical
           children: [
             Text(
-              isFull?"Lab lotado":"Pode entrar",
+              isFull?"biblioteca lotada": (isAlmostFull? "Quase Lotado" : "Pode entrar"),
               style: TextStyle(
                 fontSize: 26,
                 color: Colors.white,

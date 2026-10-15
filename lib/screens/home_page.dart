@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -115,6 +118,39 @@ class _HomePageState extends State<HomePage> {
     _snack('Registros de saída removidos!', AppColors.verde);
   }
 
+  /// Apenas para demonstração: enche a biblioteca até a capacidade máxima
+  /// com leitores aleatórios (botão visível só em modo debug).
+  void _preencherTeste() {
+    if (_lotado) {
+      _snack('Ambiente lotado! Não é possível registrar uma nova entrada.',
+          AppColors.vermelho);
+      return;
+    }
+    const nomes = ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Felipe',
+      'Gabriela', 'Henrique', 'Isabela', 'João', 'Larissa', 'Mateus',
+      'Natália', 'Otávio', 'Paula', 'Rafael', 'Sofia', 'Thiago'];
+    const sobrenomes = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Lima',
+      'Pereira', 'Costa', 'Almeida', 'Ferreira', 'Rocha'];
+    final random = Random();
+    final idsUsados = _pessoas.map((p) => p.identificacao).toSet();
+    final faltam = capacidadeMaxima - _presentes;
+
+    setState(() {
+      for (var i = 0; i < faltam; i++) {
+        String id;
+        do {
+          id = (100000 + random.nextInt(900000)).toString();
+        } while (idsUsados.contains(id));
+        idsUsados.add(id);
+        final nome = '${nomes[random.nextInt(nomes.length)]} '
+            '${sobrenomes[random.nextInt(sobrenomes.length)]}';
+        _pessoas.insert(0, Pessoa(nome: nome, identificacao: id));
+      }
+    });
+    _snack('$faltam leitores de teste adicionados. Biblioteca lotada!',
+        AppColors.roxoEscuro);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +158,12 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Biblioteca FIAP'),
         leading: const Icon(Icons.local_library),
         actions: [
+          if (kDebugMode)
+            IconButton(
+              tooltip: 'Lotar com leitores de teste',
+              onPressed: _preencherTeste,
+              icon: const Icon(Icons.group_add),
+            ),
           IconButton(
             tooltip: 'Limpar registros de saída',
             onPressed: _limparSaidas,

@@ -4,7 +4,7 @@ Aplicativo Flutter para **gerenciar os acessos da Biblioteca FIAP**. Evolução 
 
 ## 🎥 Vídeo de demonstração
 
-▶️ **[Assista ao vídeo](COLE_AQUI_O_LINK_DO_VIDEO)**
+▶️ **[Assista ao vídeo](video/demonstracao.mp4)**
 
 ## 🏛️ Ambiente escolhido
 

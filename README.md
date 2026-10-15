@@ -15,7 +15,7 @@ Aplicativo Flutter para **gerenciar os acessos da Biblioteca FIAP**. Evolução 
 | Nome | RM |
 |------|----|
 | Gianluca Kenis de Araujo | 566765 |
-| Ruan Ribeiro | 567693 |
+| Ruan Ribeiro Guimaraes | 567693 |
 
 ## ✅ Funcionalidades
 
